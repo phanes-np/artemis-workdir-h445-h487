@@ -1,0 +1,106 @@
+
+
+Anchor:
+  - &treeout output/@NUM@/run@NUM@.tree.root
+  - &histout output/@NUM@/run@NUM@.hist.root
+Processor:
+  - include:
+      name: ./inc/str-offline-stf.inc.yaml
+      replace:
+        DIR: tdcdata
+        MAX: 0
+        NUM: @NUM@
+        STF: 00
+  - include:
+      name: ./inc/str-offline-stf.inc.yaml
+      replace:
+        DIR: tdcdata
+        MAX: 0
+        NUM: @NUM@
+        STF: 01
+  - include:
+      name: ./inc/str-offline-stf.inc.yaml
+      replace:
+        DIR: tdcdata
+        MAX: 0
+        NUM: @NUM@
+        STF: 02
+  - include:
+      name: ./inc/str-offline-stf.inc.yaml
+      replace:
+        DIR: tdcdata
+        MAX: 0
+        NUM: @NUM@
+        STF: 03
+  - include:
+      name: ./inc/str-offline-stf.inc.yaml
+      replace:
+        DIR: tdcdata
+        MAX: 0
+        NUM: @NUM@
+        STF: 04
+  - include:
+      name: ./inc/str-offline-stf.inc.yaml
+      replace:
+        DIR: tdcdata
+        MAX: 0
+        NUM: @NUM@
+        STF: 05
+  - include:
+      name: ./inc/str-offline-stf.inc.yaml
+      replace:
+        DIR: tdcdata
+        MAX: 0
+        NUM: @NUM@
+        STF: 06
+  - include:
+      name: ./inc/str-offline-stf.inc.yaml
+      replace:
+        DIR: tdcdata
+        MAX: 0
+        NUM: @NUM@
+        STF: 07
+  - include:
+      name: ./inc/str-offline-stf.inc.yaml
+      replace:
+        DIR: tdcdata
+        MAX: 0
+        NUM: @NUM@
+        STF: 08
+  - include:
+      name: ./inc/str-offline-stf.inc.yaml
+      replace:
+        DIR: tdcdata
+        MAX: 0
+        NUM: @NUM@
+        STF: 09
+  - include:
+      name: ./inc/main_evt-stf.inc.yaml
+      replace:
+        PS1_TR: [-50.,50,0]
+        PS2_TR: [-50.,50,0]
+        PS3_TR: [-50.,50,0]
+        VDC_TR_MIN: -250.
+        VDC_TR_MAX: 50.
+  - name: MyTTreeProjectionProcessor
+    type: art::TTreeProjectionProcessor
+    parameter:
+      FileName: hist/basic.hist.yaml  # [TString] input filename
+      OutputFilename: *histout  # [TString] output filename
+      OutputTransparency: 0  # [Bool_t] Output is persistent if false (default)
+      Replace: ""  # [TString] Replacement of macro
+      Type: art::TTreeProjection  # [TString] type(class) of parameter
+      Verbose: 1  # [Int_t] verbose level (default 1 : non quiet)
+  - name: MyTTreeProjectionProcessor
+    type: art::TTreeProjectionProcessor
+    parameter:
+      FileName: hist/correlations.hist.yaml  # [TString] input filename
+      OutputFilename: *histout  # [TString] output filename
+      OutputTransparency: 0  # [Bool_t] Output is persistent if false (default)
+      Replace: ""  # [TString] Replacement of macro
+      Type: art::TTreeProjection  # [TString] type(class) of parameter
+      Verbose: 1  # [Int_t] verbose level (default 1 : non quiet)
+  - name: outputtree
+    type: art::TOutputTreeProcessor
+    parameter:
+      FileName: *treeout

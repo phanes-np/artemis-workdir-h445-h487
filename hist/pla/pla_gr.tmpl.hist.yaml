@@ -1,0 +1,48 @@
+anchor:
+
+include:
+  - name: hist/pla/pla.tmpl.hist.yaml
+    replace: 
+      GRLAS: gr
+      TYPE: @TYPE@
+      NUM: 1
+      TMIN:  0
+      TMAX:  524.288e3
+      QMAX:  @QMAX1@
+      TDIFFMIN: -50
+      TDIFFMAX:  50
+      QDIFFMIN: -200
+      QDIFFMAX:  200
+  - name: hist/pla/pla.tmpl.hist.yaml
+    replace: 
+      GRLAS: gr
+      TYPE: @TYPE@
+      NUM: 2
+      TMIN:  0
+      TMAX:  524.288e3
+      QMAX:  @QMAX2@
+      TDIFFMIN: -50
+      TDIFFMAX:  50
+      QDIFFMIN: -200
+      QDIFFMAX:  200
+  - name: hist/pla/pla.tmpl.hist.yaml
+    replace: 
+      GRLAS: gr
+      TYPE: @TYPE@
+      NUM: 3
+      TMIN:  0
+      TMAX:  524.288e3
+      QMAX:  @QMAX3@
+      TDIFFMIN: -50
+      TDIFFMAX:  50
+      QDIFFMIN: -200
+      QDIFFMAX:  200
+
+group:
+  - name: plastic_gr_@TYPE@_correlation
+    title: Plastic GR @TYPE@ Correlation
+    contents:
+      - name: de2_de1
+        title: DE1 vs DE2
+        x: ["pla_gr_@TYPE@_1.GetQAve()", 100, 0, @QMAX1@]
+        y: ["pla_gr_@TYPE@_2.GetQAve()", 100, 0, @QMAX2@]
