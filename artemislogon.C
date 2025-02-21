@@ -85,8 +85,17 @@
    cf->Register(pri);
 
    {
-//      TString path = gSystem->GetIncludePath();
-//      path.Append("-I./processors");
-//      gSystem->SetIncludePath(path);
+      art::TModuleDecoderFactory *df = art::TModuleDecoderFactory::Instance();
+      art::TModuleDecoder *v1190 = new art::TModuleDecoderV1190;
+      art::TModuleDecoder *v1290 = new art::TModuleDecoderV1290(25);
+      art::TModuleDecoder *v1190c = new art::TModuleDecoderV1190(26);
+      v1190->SetVerboseLevel(kError);
+      v1290->SetVerboseLevel(kError);
+      v1190c->SetVerboseLevel(kError);
+      df->Register(v1190);
+      df->Register(v1290);
+      df->Register(v1190c);
+      df->Register(new art::TModuleDecoderSkip(8));
+      df->Register(new art::TModuleDecoderSIS3820);
    }
 }

@@ -1,0 +1,84 @@
+Anchor:
+  - &treeout output/@NUM@/run@NUM@.tree.root
+  - &histout output/@NUM@/run@NUM@.hist.root
+Processor:
+  - name: ridfEventStore
+    type: art::TRIDFEventStore
+    parameter:
+      Asynchronous: 0  # [Int_t] asynchronous run end for timestamp event reconstruction
+      EventHeaderName: eventheader_ridf  # [TString] the name of event header
+      EventListName: ""  # [TString] name of event list
+      InputEventNumber: ""  # [TString] name of event number info to align with other event store
+      InputFiles: ["/np1a/phanes/work/ota/f76/test_2041.ridf"]  # [StringVec_t] The names of input files
+      MaxEventNum: 0  # [Int_t] maximum number of event (no limit if 0)
+      OutputEventNumber: ""  # [TString] name of event number info to align with other event store
+      OutputTransparency: 0  # [Bool_t] Output is persistent if false (default)
+      RunHeadersName: runheader_ridf  # [TString] the name of output array for run headers, run header will be stored once
+      SHMID: 0  # [Int_t] Shared memory id (default : 0)
+      SegmentedData: segdata_ridf  # [TString] The name of output array for segmented data
+      Start: 0  # [Int_t] start event number
+      Verbose: 1  # [Int_t] verbose level (default 1 : non quiet)
+  - include:
+      name: ./inc/str-offline-tf.inc.yaml
+      replace:
+        DIR: tdcdata
+        MAX: 0
+        NUM: @NUM@
+  - include:
+      name: ./inc/main_evt.inc.yaml
+      replace:
+        PS1_TR: [-50.,50,0]
+        PS2_TR: [-50.,50,0]
+        PS3_TR: [-50.,50,0]
+        VDC_TR_MIN: -250.
+        VDC_TR_MAX: 50.
+#  - name: mapper
+#    type: art::TMappingProcessor
+#    parameter:
+#      OutputTransparency: 1
+#      MapConfig: conf/mapper.conf
+#      CategorizedData: catdata_ridf  # [TString] The name of output array for categorized data
+#      InputCollection: [segdata_ridf]  # [StringVec_t] Input collection should inherit from TSegmentedData
+      
+  - name: trigger
+    type: art::TTimingChargeMappingProcessor
+    parameter:
+      CatID: 23  # [Int_t] Category ID of plastic
+      InputCollection: catdata
+      ChargeType:         2
+      ChargeTypeID:       0
+      TimingTypeID:       0
+      OutputCollection:   trigger
+      OutputTransparency: 0
+  - name: MyTRawDataMappingProcessor
+    type: art::TRawDataMappingProcessor
+    parameter:
+      CatID: 24  # [Int_t] Category ID of rawdata
+      DataType: 0  # [Int_t] Data Type (column in map)
+      Input: catdata  # [TString] The name of input categorized data
+      Output: hbd  # [TString] The name of output collection
+      OutputClass: art::streaming::v1::TStreamingHeartBeatDelimiter  # [TString] The name of output class
+      OutputTransparency: 0  # [Bool_t] Output is persistent if false (default)
+      Verbose: 1  # [Int_t] verbose level (default 1 : non quiet)
+#  - name: MyTTreeProjectionProcessor
+#    type: art::TTreeProjectionProcessor
+#    parameter:
+#      FileName: hist/basic.hist.yaml  # [TString] input filename
+#      OutputFilename: *histout  # [TString] output filename
+#      OutputTransparency: 0  # [Bool_t] Output is persistent if false (default)
+#      Replace: ""  # [TString] Replacement of macro
+#      Type: art::TTreeProjection  # [TString] type(class) of parameter
+#      Verbose: 1  # [Int_t] verbose level (default 1 : non quiet)
+#  - name: MyTTreeProjectionProcessor
+#    type: art::TTreeProjectionProcessor
+#    parameter:
+#      FileName: hist/correlations.hist.yaml  # [TString] input filename
+#      OutputFilename: *histout  # [TString] output filename
+#      OutputTransparency: 0  # [Bool_t] Output is persistent if false (default)
+#      Replace: ""  # [TString] Replacement of macro
+#      Type: art::TTreeProjection  # [TString] type(class) of parameter
+#      Verbose: 1  # [Int_t] verbose level (default 1 : non quiet)
+  - name: outputtree
+    type: art::TOutputTreeProcessor
+    parameter:
+      FileName: *treeout

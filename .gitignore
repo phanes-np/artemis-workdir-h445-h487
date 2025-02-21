@@ -16,3 +16,4 @@ src/compile.log
 *.root
 *.pdf
 *.ps
+.vscode
