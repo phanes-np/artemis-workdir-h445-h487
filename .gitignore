@@ -17,3 +17,5 @@ src/compile.log
 *.pdf
 *.ps
 .vscode
+rawdata
+.zsh_history_ota
