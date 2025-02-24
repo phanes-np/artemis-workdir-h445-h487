@@ -1,0 +1,18 @@
+Processor:
+ 
+# F3
+  - include: 
+      name: xxyyxxyy_calib.inc.yaml
+      replace:
+        NAME: dc31
+        TGATE: [-50.,50.]
+        QGATE: [0,10000]
+
+  - include: 
+      name: xxyy_calib.inc.yaml
+      replace:
+        NAME: dc32
+        TGATE: [-50.,100.]
+        QGATE: [0,10000]
+
+

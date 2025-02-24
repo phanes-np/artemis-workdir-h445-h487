@@ -1,0 +1,92 @@
+anchor: 
+  - &@sru@xq0ql ["(@sru@_x_cal[0].fCharge - Max$(@sru@_x_cal.fCharge*(@sru@_x_cal.fID==@sru@_x_cal[0].fID+1))) / (@sru@_x_cal[0].fCharge + Max$(@sru@_x_cal.fCharge*(@sru@_x_cal.fID==@sru@_x_cal[0].fID+1)))", 800,0,0.8]
+  - &@sru@yq0ql ["(@sru@_y_cal[0].fCharge - Max$(@sru@_y_cal.fCharge*(@sru@_y_cal.fID==@sru@_y_cal[0].fID+1))) / (@sru@_y_cal[0].fCharge + Max$(@sru@_y_cal.fCharge*(@sru@_y_cal.fID==@sru@_y_cal[0].fID+1)))", 800,0,0.8]
+
+  - &@sru@xq0qr ["(@sru@_x_cal[0].fCharge - Max$(@sru@_x_cal.fCharge*(@sru@_x_cal.fID==@sru@_x_cal[0].fID-1))) / (@sru@_x_cal[0].fCharge + Max$(@sru@_x_cal.fCharge*(@sru@_x_cal.fID==@sru@_x_cal[0].fID-1)))", 800,0,0.8]
+  - &@sru@yq0qr ["(@sru@_y_cal[0].fCharge - Max$(@sru@_y_cal.fCharge*(@sru@_y_cal.fID==@sru@_y_cal[0].fID-1))) / (@sru@_y_cal[0].fCharge + Max$(@sru@_y_cal.fCharge*(@sru@_y_cal.fID==@sru@_y_cal[0].fID-1)))", 800,0,0.8]
+
+
+  - &@sru@xq0qlqcal ["(@sru@_x_qcal[0].fCharge - Max$(@sru@_x_qcal.fCharge*(@sru@_x_qcal.fID==@sru@_x_qcal[0].fID+1))) / (@sru@_x_qcal[0].fCharge + Max$(@sru@_x_qcal.fCharge*(@sru@_x_qcal.fID==@sru@_x_qcal[0].fID+1)))", 900,0,0.9]
+  - &@sru@yq0qlqcal ["(@sru@_y_qcal[0].fCharge - Max$(@sru@_y_qcal.fCharge*(@sru@_y_qcal.fID==@sru@_y_qcal[0].fID+1))) / (@sru@_y_qcal[0].fCharge + Max$(@sru@_y_qcal.fCharge*(@sru@_y_qcal.fID==@sru@_y_qcal[0].fID+1)))", 900,0,0.9]
+
+  - &@sru@xq0qrqcal ["(@sru@_x_qcal[0].fCharge - Max$(@sru@_x_qcal.fCharge*(@sru@_x_qcal.fID==@sru@_x_qcal[0].fID-1))) / (@sru@_x_qcal[0].fCharge + Max$(@sru@_x_qcal.fCharge*(@sru@_x_qcal.fID==@sru@_x_qcal[0].fID-1)))", 900,0,0.9]
+  - &@sru@yq0qrqcal ["(@sru@_y_qcal[0].fCharge - Max$(@sru@_y_qcal.fCharge*(@sru@_y_qcal.fID==@sru@_y_qcal[0].fID-1))) / (@sru@_y_qcal[0].fCharge + Max$(@sru@_y_qcal.fCharge*(@sru@_y_qcal.fID==@sru@_y_qcal[0].fID-1)))", 900,0,0.9]
+
+
+alias: 
+  xposgate: TMath::Abs(@sru@_xcw[0].fPosition) < 5;
+  yposgate: @sru@_ycw[0].fPosition > 20.;
+  xidgate: @sru@_x_cal.fID > 1 && @sru@_x_cal.fID < 30; 
+  yidgate: @sru@_y_cal.fID > 1 && @sru@_y_cal.fID < 30; 
+  xhitgate: @sru@_x_cal@.GetEntriesFast() > 2 && (@sru@_x_cal[1].fID + @sru@_x_cal[2].fID) == 2 * @sru@_x_cal[0].fID && TMath::Abs(@sru@_x_cal[0].fID - @sru@_x_cal[1].fID) < 2;
+  yhitgate: @sru@_y_cal@.GetEntriesFast() > 2 && (@sru@_y_cal[1].fID + @sru@_y_cal[2].fID) == 2 * @sru@_y_cal[0].fID && TMath::Abs(@sru@_y_cal[0].fID - @sru@_y_cal[1].fID) < 2;
+
+
+group:
+  - name: srppacdqdxlr@fp@
+    title: SR-PPAC dqdxLR @fp@
+    contents:
+      - name: @sru@_x_q0ql
+        title: @sru@ X Q0QL
+#        cut: s2zgate
+        x: *@sru@xq0ql
+      - name: @sru@_y_q0ql
+        title: @sru@ Y Q0Ql
+#        cut: s2zgate
+        x: *@sru@yq0ql
+      - name: @sru@_x_q0qr
+        title: @sru@ X Q0QR
+#        cut: s2zgate
+        x: *@sru@xq0qr
+      - name: @sru@_y_q0qr
+        title: @sru@ Y Q0QR
+#        cut: s2zgate
+        x: *@sru@yq0qr
+
+#  - name: srppacdqdxlr@fp@qcal
+#    title: SR-PPAC dqdxLR @fp@ qcal
+#    contents:
+#      - name: @sru@_x_q0qlqcal
+#        title: @sru@ X Q0QL qcal
+##        cut: s2zgate
+#        x: *@sru@xq0qlqcal
+#      - name: @sru@_y_q0qlqcal
+#        title: @sru@ Y Q0Ql qcal
+##        cut: s2zgate
+#        x: *@sru@yq0qlqcal
+#      - name: @sru@_x_q0qrqcal
+#        title: @sru@ X Q0QR qcal
+##        cut: s2zgate
+#        x: *@sru@xq0qrqcal
+#      - name: @sru@_y_q0qrqcal
+#        title: @sru@ Y Q0QR qcal
+##        cut: s2zgate
+#        x: *@sru@yq0qrqcal
+
+  - name: srppacdqdxlr@fp@idgate
+    title: SR-PPAC dqdxLR @fp@ idgate
+    contents:
+      - name: @sru@_x_q0qlidgate
+        title: @sru@ X Q0QL idgate
+        cut: xidgate && xhitgate
+        x: *@sru@xq0ql
+      - name: @sru@_y_q0qlidgate
+        title: @sru@ Y Q0Ql idgate
+        cut: yidgate && yhitgate
+        x: *@sru@yq0ql
+      - name: @sru@_x_q0qridgate
+        title: @sru@ X Q0QR idgate
+        cut: xidgate && xhitgate
+        x: *@sru@xq0qr
+      - name: @sru@_y_q0qridgate
+        title: @sru@ Y Q0QR idgate
+        cut: yidgate && yhitgate
+        x: *@sru@yq0qr
+
+
+
+
+
+
+
+

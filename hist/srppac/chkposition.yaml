@@ -1,0 +1,23 @@
+anchor:
+  - &@sr@_xc0 ["@sr@_xc0[0].fPosition",300,-150,150]
+  - &@sr@_yc0 ["@sr@_yc0[0].fPosition",300,-80,80]
+
+group:
+  - name: srppac_position
+    title: SR-PPAC Position
+    contents:
+      - name: @sr@_xyc0
+        title: SR-PPAC @sr@ XC0 vs YC0
+        x: *@sr@_xc0
+        y: *@sr@_yc0
+      - name: @sr@_xc0
+        title: SR-PPAC @sr@ XC0
+        x: *@sr@_xc0
+      - name: @sr@_yc0
+        title: SR-PPAC @sr@ YC0
+        x: *@sr@_yc0
+
+       
+
+
+

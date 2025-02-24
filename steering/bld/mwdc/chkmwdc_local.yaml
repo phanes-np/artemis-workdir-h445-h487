@@ -1,0 +1,31 @@
+Processor:
+##### F3
+#####
+  - include: 
+      name: time2dt.inc.yaml
+      replace: 
+        CATID: 20    
+        NAME: dc31
+        TREDET: sr11_a
+        TREFID: 0
+  - include:
+      name:  xxyyxxyy.inc.yaml
+      replace:
+        NAME: dc31
+
+  - include: 
+      name: time2dt.inc.yaml
+      replace: 
+        CATID: 21    
+        NAME: dc32
+        TREDET: sr11_a
+        TREFID: 0
+  - include:
+      name:  xxyy.inc.yaml
+      replace:
+        NAME: dc32
+
+
+########
+  - include: f3mwdctrack.yaml
+  - include: mwdc_calib_local.yaml

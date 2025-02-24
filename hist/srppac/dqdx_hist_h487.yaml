@@ -1,0 +1,53 @@
+anchor: 
+  - &@sru@xq0q1 ["(@sru@_x_cal[0].fCharge - @sru@_x_cal[1].fCharge) / (@sru@_x_cal[0].fCharge + @sru@_x_cal[1].fCharge)", 200,0,0.2]
+  - &@sru@yq0q1 ["(@sru@_y_cal[0].fCharge - @sru@_y_cal[1].fCharge) / (@sru@_y_cal[0].fCharge + @sru@_y_cal[1].fCharge)", 400,0,0.4]
+  - &@sru@xq0q1_idhitgate ["(@sru@_x_cal[0].fCharge - @sru@_x_cal[1].fCharge) / (@sru@_x_cal[0].fCharge + @sru@_x_cal[1].fCharge + sr11_x_cal[2].fCharge)", 150,0,0.15]
+  - &@sru@yq0q1_idhitgate ["(@sru@_y_cal[0].fCharge - @sru@_y_cal[1].fCharge) / (@sru@_y_cal[0].fCharge + @sru@_y_cal[1].fCharge + sr11_y_cal[2].fCharge)", 150,0,0.15]
+
+alias: 
+  xidgate: @sru@_x_cal.fID > 1 && @sru@_x_cal.fID < 30; 
+  yidgate: @sru@_y_cal.fID > 1 && @sru@_y_cal.fID < 30; 
+  xhitgate: @sru@_x_cal@.GetEntriesFast() > 2 && (@sru@_x_cal[1].fID + @sru@_x_cal[2].fID) == 2 * @sru@_x_cal[0].fID && TMath::Abs(@sru@_x_cal[0].fID - @sru@_x_cal[1].fID) < 2;
+  yhitgate: @sru@_y_cal@.GetEntriesFast() > 2 && (@sru@_y_cal[1].fID + @sru@_y_cal[2].fID) == 2 * @sru@_y_cal[0].fID && TMath::Abs(@sru@_y_cal[0].fID - @sru@_y_cal[1].fID) < 2;
+
+group:
+  - name: sruppacdqdx@fp@
+    title: SR-PPAC dqdx @fp@
+    contents:
+      - name: @sru@_x_q0q1
+        title: @sru@ X Q0Q1
+        x: *@sru@xq0q1
+      - name: @sru@_y_q0q1
+        title: @sru@ Y Q0Q1
+        x: *@sru@yq0q1
+
+      - name: @sru@_x_q0q1_idgate
+        title: @sru@ X Q0Q1 IDGate
+        cut: xidgate
+        x: *@sru@xq0q1
+      - name: @sru@_y_q0q1_idgate
+        title: @sru@ Y Q0Q1 IDGate
+        cut: yidgate
+        x: *@sru@yq0q1
+
+      - name: @sru@_x_q0q1_hitgate
+        title: @sru@ X Q0Q1 Hit gate
+        cut: xhitgate
+        x: *@sru@xq0q1
+      - name: @sru@_y_q0q1_hitgate
+        title: @sru@ Y Q0Q1 Hit gate
+        cut: yhitgate
+        x: *@sru@yq0q1
+
+      - name: @sru@_x_q0q1_idhitgate
+        title: @sru@ X Q0Q1 Hit + ID gate 
+        cut: xidgate && xhitgate
+        x: *@sru@xq0q1_idhitgate
+      - name: @sru@_y_q0q1_idhitgate
+        title: @sru@ Y Q0Q1 Hit + ID gate 
+        cut: yidgate && yhitgate
+        x: *@sru@yq0q1_idhitgate
+
+
+
+

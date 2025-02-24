@@ -1,0 +1,4 @@
+position: [0,0.,-191.75] # HIAC Feb.2025
+angle: 0.
+turned: 1
+plane_config: prm/mwdc/config/xxyyxxyy.yaml
